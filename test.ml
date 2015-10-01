@@ -5,6 +5,7 @@ let average a b =
 
 let my_ref = ref 0;; (* References (!) *)
 
-let main() = print_string ("Hello World!\n");;
-main();;
+(* () is the unit *)
+let main () = print_string ("Hello World!\n");;
+main ();;
 
