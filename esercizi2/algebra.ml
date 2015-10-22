@@ -36,10 +36,41 @@ struct
   let i = false
 end
 
-(* Integer monoids *)
-module Sum : Monoid with type t = int =
+(* Integer groups *)
+module Sum : Group with type t = int =
 struct
   type t = int
   let add = (+)
+  let inv = (fun x -> (-x))
   let i = 0
 end
+
+module Z4 : Group with type t = int =
+struct
+  type t = int
+  let add = (fun x y -> (x+y) mod 4)
+  let inv = (fun x -> (-x) mod 4)
+  let i = 0
+end
+
+
+(* Ring examples *)
+module Trivial : Ring with type t = unit =
+struct
+  type t = unit
+  let add = (fun x y -> ())
+  let mul = (fun x y -> ())
+  let i = ()
+end
+
+module Integral : Ring with type t = int =
+struct
+  type t = int
+  let add = (+)
+  let mul = ( * )
+  let i = 0
+end
+
+
+(* Provide functions to check the algebraic structure *)
+
