@@ -1,3 +1,5 @@
+(** EXERCISES ON ML/OCaML **)
+
 (* Exercise 1 *)
 let alkaline_earth_metals = [38;12;4;20;56;88];;
 
@@ -25,11 +27,14 @@ let merge_atomic names numbers = quicksort1 (List.combine names numbers)
 
 
 (* Exercise 2 *)
-type scale = Kelvin | Celsius | Fahrenheit | Rankine | Delisle | Newton | Reaumur | Romer;;
+(* This defines an affine transformation, of the form: ax+b. 
+   It can be evaluated for a particular value of x, and its
+   inverse can be computed. *)
 type affine = {a:float; b:float};;
-
 let eval aff t = (aff.a *. t) +. aff.b;;
 let inverse aff = {a=1.0 /. aff.a; b= 0.0 -. (aff.b) *. (1.0 /. aff.a)};;
+
+type scale = Kelvin | Celsius | Fahrenheit | Rankine | Delisle | Newton | Reaumur | Romer;;
 
 let toKelvin scale = match scale with
     | Kelvin ->     {a=1.0; b=0.0}
@@ -42,4 +47,8 @@ let toKelvin scale = match scale with
     | Romer ->      {a=(40.0 /. 21.0); b=((-2.5) *. (40.0 /. 21.0) +. 273.15)}
 ;;
 
+(* Transforms between to scales thru the Kelvin scale. *)
 let transform fromscale toscale t = eval (toKelvin toscale) (eval (inverse (toKelvin fromscale)) t);;
+
+
+(**)
