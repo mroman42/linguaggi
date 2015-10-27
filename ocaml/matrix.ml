@@ -41,7 +41,8 @@ struct
   (* Returns the transposed matrix. *)
   let transposition m = make (fun i j -> m.(j).(i)) (snd (dimensions m)) (fst (dimensions m));;
 
-  
+  (* Combines two matrices. Analogue for the function zip in Haskell.
+     It is an auxiliar function for the arithmetic ones. *)
   let combine a b =
     if not (dimensions a = dimensions b) then
       raise (Failure "Invalid dimensions")
@@ -51,7 +52,7 @@ struct
   ;;
 
 
-  (* Aritmetic functions *)
+  (* Arithmetic functions *)
   let add a b = map (fun (x,y) -> x+y) (combine a b);;
   let scalar a m = map (fun x -> a*x) m;;
   let prodm a b = map (fun (x,y) -> x*y) (combine a b);;
