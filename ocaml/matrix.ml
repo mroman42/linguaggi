@@ -12,9 +12,12 @@ module Matrix : sig
 end with type 'a matrix = 'a array array =
 struct
   type 'a matrix = 'a array array
-
+                      
+  (* Equality can be used directly *)
   let eq = (=);;
 
+  (* Private function. Given a function over the
+     indices, returns a new matrix. *)
   let make f h w = 
     let m = (Array.make_matrix h w (f 0 0)) in
     for i=0 to h-1 do
@@ -25,11 +28,19 @@ struct
     m
   ;;
 
+  (* Higher map, better suited for matrices. *)
   let map f = Array.map (Array.map f);;
 
+  (* Return the dimensions of the matrix.
+     It assumes all rows to be the same length! *)
   let dimensions m = (Array.length m, Array.length m.(1));;
 
+  (* Matrix functions *)
+  (* Returns a new identical matrix. *)
   let copy m = make (fun i j -> m.(i).(j)) (fst (dimensions m)) (snd (dimensions m));;
+  (* Returns the transposed matrix. *)
+  let transposition m = make (fun i j -> m.(j).(i)) (snd (dimensions m)) (fst (dimensions m));;
+
   
   let combine a b =
     if not (dimensions a = dimensions b) then
@@ -56,6 +67,5 @@ struct
     else raise (Failure "Invalid dimensions")
   ;;
 
-  (* Matrix functions *)
-  let transposition m = make (fun i j -> m.(j).(i)) (snd (dimensions m)) (fst (dimensions m));;
+
 end
