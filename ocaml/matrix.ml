@@ -62,11 +62,9 @@ struct
     let dima = (dimensions a) in
     let dimb = (dimensions b) in
     let lst i j = List.map (fun x -> a.(i).(x) * b.(x).(j)) (range 0 (snd dima)) in
-
     if (snd dima == fst dimb) 
     then make (fun i j -> sum (lst i j)) (fst dima) (snd dimb)
     else raise (Failure "Invalid dimensions")
   ;;
-
 
 end
