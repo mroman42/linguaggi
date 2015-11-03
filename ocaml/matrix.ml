@@ -51,7 +51,6 @@ struct
       make (fun i j -> (a.(i).(j), b.(i).(j))) h w
   ;;
 
-
   (* Arithmetic functions *)
   let add a b = map (fun (x,y) -> x+y) (combine a b);;
   let scalar a m = map (fun x -> a*x) m;;
