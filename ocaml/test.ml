@@ -32,3 +32,27 @@ type tree = Nothing | Node of tree;;
 let main () = print_string ("Hello World!\n");;
 main ();;
 
+let rec map f = function
+    | [] -> []
+    | x :: xs -> (f x) :: (map f xs)
+;;
+
+let rec suma2 = function
+    | [] -> 0
+    | h :: t -> h + (suma2 t)
+;;
+
+let rec prod2 = function
+    | [] -> 1
+    | h :: t -> h * (prod2 t)
+;;
+
+let rec fold f z = function
+    | [] -> z
+    | h :: t -> f h (fold f z t)
+;;
+
+let rec sum = fold (+) 0;;
+let rec prod = fold ( * ) 1;;
+let rec all = fold (&&) true;;
+
