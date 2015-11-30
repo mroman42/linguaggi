@@ -50,7 +50,7 @@ slavepr(X) ->
 slave_wait(X) ->
     receive
         {msg, die} ->
-            io:format("slave" ++ integer_to_list(X) ++  " dies."),
+            io:format("slave" ++ integer_to_list(X) ++  " dies.\n"),
             exit({X,normal});
         {msg, Text} ->
             io:format("slave" ++ integer_to_list(X) ++  " prints: " ++ Text ++ "\n"),
