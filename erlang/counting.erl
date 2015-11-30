@@ -34,4 +34,3 @@ print(E,R,S) ->
 stop() ->
     exit(whereis(server), kill),
     ok.
-
