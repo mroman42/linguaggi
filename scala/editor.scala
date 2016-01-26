@@ -1,5 +1,5 @@
 import scala.io.StdIn.readChar
-
+import scala.collection.mutable.Stack
 
 abstract class Operation
 case class Exits() extends Operation
@@ -7,6 +7,7 @@ case class Delete() extends Operation
 case class Insert(c:Char) extends Operation
 
 abstract class Executor {
+  var text : String
   def execute(op : Operation) {}
 }
 
@@ -77,10 +78,40 @@ trait Debug extends Executor {
   }
 }
 
+
+trait UndoRedo extends Executor {
+  var undos = Stack[String]()
+  var redos = Stack[String]()
+
+  override def execute(op : Operation) {
+    undos.push(text)
+
+    super.execute(op)
+
+    println("Undo or Redo?")
+    readChar match {
+      case 'u' => Undo()
+      case 'r' => Redo()
+      case _ => {}
+    }
+  }
+
+  def Undo() {
+    redos.push(text)
+    text = undos.pop
+  }
+
+  def Redo() {
+    undos.push(text)
+    text = redos.pop
+  }
+}
+
+
 println("Editor Version 1")
 val ed = new Editor("editable")
 ed.console()
 
 println("Editor Version 2")
-val ed2 = new Editor("utils") with Debug
+val ed2 = new Editor("utils") with UndoRedo with Debug
 ed2.console()
